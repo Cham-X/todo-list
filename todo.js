@@ -1,18 +1,18 @@
-// const addTask = document.getElementById("addTask");
-// const taskForm = document.getElementById("todo-form")
+const addTask = document.getElementById("addTask");
+const taskForm = document.getElementById("todo-form")
 
-// taskForm.addEventListener("mouseover", runAddTask)
+taskForm.addEventListener("mouseover", runAddTask)
 
-// newHeader = document.createElement('h1')
-// taskForm.appendChild(newHeader)
+newHeader = document.createElement('h1')
+taskForm.appendChild(newHeader)
 
 
-// function runAddTask(e) {
-//     newHeader.textContent = `MouseX : ${e.offsetX}, MouseY : ${e.offsetY} EVENT-TYPE : ${e.type}
-//     `
+function runAddTask(e) {
+    newHeader.textContent = `MouseX : ${e.offsetX}, MouseY : ${e.offsetY} EVENT-TYPE : ${e.type}
+    `
     
-// document.body.style.backgroundColor = `rgba( ${e.offsetX}, ${e.offsetY}, 40)`
-// }
+document.body.style.backgroundColor = `rgba( ${e.offsetX}, ${e.offsetY}, 40)`
+}
 
 
 const form = document.querySelector(".todo-form");
@@ -96,17 +96,18 @@ function storeInLocalStorage(task) {
 function removeTask(e) {
     if(e.target.classList.contains("cancel-button")) {
         if (confirm("Are you sure?")) {
-            e.target.parentElement.remove()
+            const taskItem = e.target.parentElement;
+            taskItem.remove()
             
             // remove from LS
 
-            removeTaskFromLocalStorage(e.target.parentElement)
+            removeTaskFromLocalStorage(taskItem.innerText)
          
       }
     }
 }
 
-function removeTaskFromLocalStorage(taskItem) {
+function removeTaskFromLocalStorage(taskText) {
     let tasks;
     if (localStorage.getItem("tasks") === null) {
         tasks = []
@@ -114,9 +115,9 @@ function removeTaskFromLocalStorage(taskItem) {
         tasks = JSON.parse(localStorage.getItem("tasks"));
     }
 
-    tasks.forEach(function (task, index) {
+    tasks.forEach(function(task, index) {
 
-        if(taskItem.innerText === task) {
+        if(taskText === task) {
             console.log('delete idiot')
             tasks.splice(index, 1)
         }
